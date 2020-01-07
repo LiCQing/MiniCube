@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsu.dao.TbCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.jsu.pojo.TbComment" >
+    <id column="cmt_id" property="cmtId" jdbcType="INTEGER" />
+    <result column="cmt_content" property="cmtContent" jdbcType="VARCHAR" />
+    <result column="cmt_create_time" property="cmtCreateTime" jdbcType="TIMESTAMP" />
+    <result column="cmt_status" property="cmtStatus" jdbcType="INTEGER" />
+    <result column="cmt_reply_type" property="cmtReplyType" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="reply_id" property="replyId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cmt_id, cmt_content, cmt_create_time, cmt_status, cmt_reply_type, user_id, reply_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jsu.pojo.TbCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comment
+    where cmt_id = #{cmtId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comment
+    where cmt_id = #{cmtId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jsu.pojo.TbCommentExample" >
+    delete from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jsu.pojo.TbComment" >
+    insert into tb_comment (cmt_id, cmt_content, cmt_create_time, 
+      cmt_status, cmt_reply_type, user_id, 
+      reply_id)
+    values (#{cmtId,jdbcType=INTEGER}, #{cmtContent,jdbcType=VARCHAR}, #{cmtCreateTime,jdbcType=TIMESTAMP}, 
+      #{cmtStatus,jdbcType=INTEGER}, #{cmtReplyType,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{replyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsu.pojo.TbComment" >
+    insert into tb_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmtId != null" >
+        cmt_id,
+      </if>
+      <if test="cmtContent != null" >
+        cmt_content,
+      </if>
+      <if test="cmtCreateTime != null" >
+        cmt_create_time,
+      </if>
+      <if test="cmtStatus != null" >
+        cmt_status,
+      </if>
+      <if test="cmtReplyType != null" >
+        cmt_reply_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="replyId != null" >
+        reply_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmtId != null" >
+        #{cmtId,jdbcType=INTEGER},
+      </if>
+      <if test="cmtContent != null" >
+        #{cmtContent,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtCreateTime != null" >
+        #{cmtCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmtStatus != null" >
+        #{cmtStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cmtReplyType != null" >
+        #{cmtReplyType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jsu.pojo.TbCommentExample" resultType="java.lang.Integer" >
+    select count(*) from tb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_comment
+    <set >
+      <if test="record.cmtId != null" >
+        cmt_id = #{record.cmtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtContent != null" >
+        cmt_content = #{record.cmtContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtCreateTime != null" >
+        cmt_create_time = #{record.cmtCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cmtStatus != null" >
+        cmt_status = #{record.cmtStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtReplyType != null" >
+        cmt_reply_type = #{record.cmtReplyType,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyId != null" >
+        reply_id = #{record.replyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_comment
+    set cmt_id = #{record.cmtId,jdbcType=INTEGER},
+      cmt_content = #{record.cmtContent,jdbcType=VARCHAR},
+      cmt_create_time = #{record.cmtCreateTime,jdbcType=TIMESTAMP},
+      cmt_status = #{record.cmtStatus,jdbcType=INTEGER},
+      cmt_reply_type = #{record.cmtReplyType,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      reply_id = #{record.replyId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsu.pojo.TbComment" >
+    update tb_comment
+    <set >
+      <if test="cmtContent != null" >
+        cmt_content = #{cmtContent,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtCreateTime != null" >
+        cmt_create_time = #{cmtCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmtStatus != null" >
+        cmt_status = #{cmtStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cmtReplyType != null" >
+        cmt_reply_type = #{cmtReplyType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="replyId != null" >
+        reply_id = #{replyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cmt_id = #{cmtId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jsu.pojo.TbComment" >
+    update tb_comment
+    set cmt_content = #{cmtContent,jdbcType=VARCHAR},
+      cmt_create_time = #{cmtCreateTime,jdbcType=TIMESTAMP},
+      cmt_status = #{cmtStatus,jdbcType=INTEGER},
+      cmt_reply_type = #{cmtReplyType,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      reply_id = #{replyId,jdbcType=INTEGER}
+    where cmt_id = #{cmtId,jdbcType=INTEGER}
+  </update>
+</mapper>

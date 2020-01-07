@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jsu.dao.TbFollowMapper" >
+  <resultMap id="BaseResultMap" type="com.jsu.pojo.TbFollow" >
+    <id column="fl_id" property="flId" jdbcType="INTEGER" />
+    <result column="fl_user_id" property="flUserId" jdbcType="INTEGER" />
+    <result column="fl_create_time" property="flCreateTime" jdbcType="TIMESTAMP" />
+    <result column="fled_user_id" property="fledUserId" jdbcType="INTEGER" />
+    <result column="fl_interact_time" property="flInteractTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fl_id, fl_user_id, fl_create_time, fled_user_id, fl_interact_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jsu.pojo.TbFollowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_follow
+    where fl_id = #{flId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_follow
+    where fl_id = #{flId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jsu.pojo.TbFollowExample" >
+    delete from tb_follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jsu.pojo.TbFollow" >
+    insert into tb_follow (fl_id, fl_user_id, fl_create_time, 
+      fled_user_id, fl_interact_time)
+    values (#{flId,jdbcType=INTEGER}, #{flUserId,jdbcType=INTEGER}, #{flCreateTime,jdbcType=TIMESTAMP}, 
+      #{fledUserId,jdbcType=INTEGER}, #{flInteractTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jsu.pojo.TbFollow" >
+    insert into tb_follow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flId != null" >
+        fl_id,
+      </if>
+      <if test="flUserId != null" >
+        fl_user_id,
+      </if>
+      <if test="flCreateTime != null" >
+        fl_create_time,
+      </if>
+      <if test="fledUserId != null" >
+        fled_user_id,
+      </if>
+      <if test="flInteractTime != null" >
+        fl_interact_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flId != null" >
+        #{flId,jdbcType=INTEGER},
+      </if>
+      <if test="flUserId != null" >
+        #{flUserId,jdbcType=INTEGER},
+      </if>
+      <if test="flCreateTime != null" >
+        #{flCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fledUserId != null" >
+        #{fledUserId,jdbcType=INTEGER},
+      </if>
+      <if test="flInteractTime != null" >
+        #{flInteractTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jsu.pojo.TbFollowExample" resultType="java.lang.Integer" >
+    select count(*) from tb_follow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_follow
+    <set >
+      <if test="record.flId != null" >
+        fl_id = #{record.flId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flUserId != null" >
+        fl_user_id = #{record.flUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flCreateTime != null" >
+        fl_create_time = #{record.flCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fledUserId != null" >
+        fled_user_id = #{record.fledUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flInteractTime != null" >
+        fl_interact_time = #{record.flInteractTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_follow
+    set fl_id = #{record.flId,jdbcType=INTEGER},
+      fl_user_id = #{record.flUserId,jdbcType=INTEGER},
+      fl_create_time = #{record.flCreateTime,jdbcType=TIMESTAMP},
+      fled_user_id = #{record.fledUserId,jdbcType=INTEGER},
+      fl_interact_time = #{record.flInteractTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jsu.pojo.TbFollow" >
+    update tb_follow
+    <set >
+      <if test="flUserId != null" >
+        fl_user_id = #{flUserId,jdbcType=INTEGER},
+      </if>
+      <if test="flCreateTime != null" >
+        fl_create_time = #{flCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fledUserId != null" >
+        fled_user_id = #{fledUserId,jdbcType=INTEGER},
+      </if>
+      <if test="flInteractTime != null" >
+        fl_interact_time = #{flInteractTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fl_id = #{flId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jsu.pojo.TbFollow" >
+    update tb_follow
+    set fl_user_id = #{flUserId,jdbcType=INTEGER},
+      fl_create_time = #{flCreateTime,jdbcType=TIMESTAMP},
+      fled_user_id = #{fledUserId,jdbcType=INTEGER},
+      fl_interact_time = #{flInteractTime,jdbcType=TIMESTAMP}
+    where fl_id = #{flId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,14 @@
+server:
+  port: 9000
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+#  type-aliases-package: com.jsu.pojo
+
+spring:
+  datasource:
+    password: 123456
+    url: jdbc:mysql://localhost:3306/db_cube?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
